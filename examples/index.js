@@ -1,14 +1,10 @@
 const observable = require("../dist/micro-reaction.js").observable;
 const observe = require("../dist/micro-reaction.js").observe;
 
-const ob = observable({
-    a: {
-        b: 1
-    }
-});
+const ob = observable([]);
 
-observe(() => console.log(ob.a.b));
+observe(() => console.log(ob));
 
-// logs 1
-// logs 2
-ob.a.b = 2;
+// logs []
+// logs [2]
+ob.push(2);

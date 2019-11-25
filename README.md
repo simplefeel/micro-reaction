@@ -14,6 +14,10 @@
 
 > one extremely simple observe state library, it's small, but strong.
 
+## Motivation
+
+The project is inspired by [observer-util](https://github.com/nx-js/observer-util) and [wana](https://github.com/alloc/wana), but they is too large and not cleary read, so I refactor it. to be simple and better learn.
+
 
 ## Install
 
@@ -23,6 +27,7 @@ npm install --save micro-reaction
 
 ## Usage
 
+### Nested properties
 ```js
 import { observable, observe } from "micro-reaction";
 
@@ -34,9 +39,34 @@ const ob = observable({
 
 observe(() => console.log(ob.a.b));
 
-// output: 1
-// output: 2
+// logs: 1
+// logs: 2
 ob.a.b = 2;
+```
+### Dynamic properties
+```js
+import { observable, observe } from "micro-reaction";
+
+const ob = observable();
+
+observe(() => console.log(ob.a));
+
+// logs undefined
+// logs 2
+ob.a = 2;
+```
+
+### Arrays
+```js
+import { observable, observe } from "micro-reaction";
+
+const ob = observable([]);
+
+observe(() => console.log(ob));
+
+// logs []
+// logs [2]
+ob.push(2);
 ```
 
 ## API
