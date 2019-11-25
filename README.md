@@ -1,4 +1,4 @@
-<h1 align="center">micro-reactions</h1>
+<h1 align="center">micro-reaction</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
   <a href="#" target="_blank">
@@ -35,3 +35,13 @@ observe(() => console.log(ob.a.b));
 // output: 2
 ob.a.b = 2;
 ```
+
+## API
+
+- observable(object)
+
+    create a observable object, return a proxy object with es6 proxy.
+
+- observe(function)
+
+    pass a function ,reaction auto run when it use a observable state.
