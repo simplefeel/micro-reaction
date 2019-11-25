@@ -1,17 +1,33 @@
-// key:原始对象 value:引用依赖
+// 存储依赖对象
 const storeReactions = new WeakMap();
+
+// 存储代理对象
+const storeProxys = new WeakMap();
+
 // 中转数组，用来临时存储当前可观察对象的反应函数
 const storeFns = [];
+
 /**
  * @description: 使一个对象变成可观察对象
- * @param obj: 可观察对象 
+ * @param obj: 原始对象 
  * @return: 返回一个经过代理的对象
  */
 export function observable(obj = {}) {
+    return storeProxys.get(obj) || createObservable(obj)
+}
+
+/**
+ * @description: 创建可观察的对象
+ * @param obj: 原始对象
+ * @return: 被观察的对象
+ */
+function createObservable(obj) {
     const proxyObj = new Proxy(obj, handlers());
     storeReactions.set(obj, new Map())
+    storeProxys.set(obj, proxyObj)
     return proxyObj
 }
+
 /**
  * @description: 观察执行函数
  * @param fn: 函数
@@ -28,6 +44,7 @@ export function observe(fn) {
         }
     }
 }
+
 /**
  * @description: 具体的代理细节
  * @param null
@@ -38,7 +55,11 @@ function handlers() {
         get: (target, key, receiver) => {
             const result = Reflect.get(target, key, receiver);
             depsCollect({ target, key })
-            return result
+            const observableResult = storeProxys.get(result);
+            if (typeof result === 'object' && result != null && storeFns.length > 0) {
+                return observable(result)
+            }
+            return observableResult || result
         },
         set: (target, key, value, receiver) => {
             const result = Reflect.set(target, key, value, receiver);
