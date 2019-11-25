@@ -12,6 +12,7 @@ export default {
         babel({
             runtimeHelpers: true,
             exclude: 'node_modules/**',
-        })
+        }),
+        uglify()
     ]
 };
