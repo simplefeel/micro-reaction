@@ -19,6 +19,10 @@
 
 The project is inspired by [observer-util](https://github.com/nx-js/observer-util) and [wana](https://github.com/alloc/wana), but they is too large and not cleary read, so I refactor it. to be simple and better learn.
 
+## Relations
+
+[micro-reaction-miniprogram](https://github.com/simplefeel/micro-reaction-miniprogram) is a simple and strong state manange for miniprogram, it use **micro-reaction** as the reactivity system which observe state and auto run effect when state change.
+
 
 ## Install
 
